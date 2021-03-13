@@ -1,14 +1,13 @@
 ### Script to control apache services
 
 ### Function to start Apche
-#Exit codes:
-#	0:success
-#	1:already started
-#       2:can't stop Apache 
+
+# Start apache Function
 function start_apache {
 		sudo service apache2 restart
 		 echo "Process is running."
 }
+
 
 #  Function to Stop Apache
 function stop_apache {
@@ -16,6 +15,7 @@ sudo service apache2 stop
 
 }
 
+#Function to install Apache 
 function install_apache {
 
 sudo apt-get update
@@ -23,16 +23,20 @@ sudo apt-get install apache2
 echo "Apache Installed"
 
 }
+#Function to unstall Apache
 function unstall_apache {
 sudo apt-get --purge remove apache2
 sudo apt-get remove apache2-common
 }
 
+#Function to display All virtual Host exist
 function displayAllLocalHost {
       apache2ctl -S | grep 'port'| cut -d' ' -f13 > allLocalHost
       cut -d' ' -f13 allLocalHost
+      sudo rm allLocalHost
 }
 
+#Function to Add Local Host 
 function newlocal {
    # echo ${1}
 #     checkNameOfVH ${1}
@@ -57,18 +61,20 @@ function newlocal {
       echo "127.0.0.1     ${newlocalhost}">> /etc/hosts
       echo "127.0.0.1  ${newlocalhost}">>/mnt/c/Windows/system32/drivers/etc/hosts
      # enableLocalHost ${newlocalhost}
-
      a2ensite ${1}
      service apache2 restart
    #  else
 #	echo "Virtual Host is already exit"
     # fi
  }
+
+#fuction to enable Local Host 
 function enableLocalHost {
      a2ensite ${1}
      service apache2 restart
 }
 
+#function to remove localhost 
 function removelocalhost {
    NUM_LINE=1
    while read -r line;do
@@ -84,6 +90,8 @@ function removelocalhost {
    service apache2 restart
 }
 
+
+#function to check if virtual host is exist or not 
 function checkIfVHostIsExist {
    NUM_LINE=1
    while read -r line;do
@@ -124,6 +132,7 @@ AllowOverride All
 sudo service apache2 restart
 }
 
+# Function to Add New authentication
 function Add_New_authenticationVirtualHost {
 nameOfWebsite=${1}
 userName=${2}
@@ -132,7 +141,7 @@ sudo htpasswd /var/www/websites/${nameOfWebsite}/.htpasswd ${userName}
 service apache2 restart
 }
 
-
+#Function to Non Authentication
 function Nonauthentication1 {
 nameOfWebsite=${1}
 #echo "
@@ -147,6 +156,7 @@ AllowOverride none
 sudo service apache2 restart
 }
 
+#Function to Non Authentication 
 function Nonauthentication {
 nameOfWebsite=${1}
 #echo "
@@ -162,18 +172,7 @@ Require all granted
 sudo service apache2 restart
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+#function check Name Of Virtusl host exist or not 
 function checkNameOfVH {
 if grep -Fxq "${1}" allLocalHost; then 
 echo "Can't add these name"

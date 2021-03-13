@@ -1,3 +1,4 @@
+#check if virtual host exist or not 
 function checkIfVirtualHostExistOrNot {
 	VIRTUALHOSTNAME=${1}
         flag=1
@@ -24,23 +25,24 @@ function checkIfVirtualHostExistOrNot {
 #        return $[flag]
 #}
 
-function checkIfVirtualHostEnableOrNo1 {
-	authVirtualHost=${1}
- 	Flag_authorized=1
- 	while read -r line;do
- 	if [ "$line" == " AllowOverride All" ]; then
-        echo ${line}
-        echo "authorized"
-	 Flag_authorized=1
-         break;
- 	else
- 	echo "not authorized"
- 	Flag_authorized=0
- 	fi
- 	done <"/etc/apache2/sites-available/${authVirtualHost}.conf"
-	return $[Flag_authorized]
-}
+#function checkIfVirtualHostEnableOrNo1 {#
+#	authVirtualHost=${1}
+# 	Flag_authorized=1
+# 	while read -r line;do
+# 	if [ "$line" == " AllowOverride All" ]; then
+#        echo ${line}
+#        echo "authorized"
+#	 Flag_authorized=1
+#         break;
+# 	else
+# 	echo "not authorized"
+# 	Flag_authorized=0
+# 	fi
+# 	done <"/etc/apache2/sites-available/${authVirtualHost}.conf"
+#	return $[Flag_authorized]
+#}
 
+# checker Function To check if Virtual Host is enabled or not 
 function checkIfVirtualHostEnableOrNo
 {
 authVirtualHost=${1} 
@@ -61,7 +63,7 @@ authVirtualHost=${1}
 
 }
 
-
+# check function Apache exist or not
 function checkApache {
      service apache2 status > status.txt 2>&1
      status=$(grep 'unrecognized' status.txt)
@@ -74,16 +76,3 @@ function checkApache {
     # echo $FLAG
      return $[FLAG_EXIST]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
