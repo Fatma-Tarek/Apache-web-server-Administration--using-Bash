@@ -50,7 +50,7 @@ do
 		else
                 echo "Need To install Apache"
                 fi
-B		;;
+		;;
 	"Stop Apache")
                 stop_apache
 		echo "Apache Stop"
@@ -129,7 +129,8 @@ B		;;
          then
 	 echo "website name (ex name.com):"
          read  vname
-	 Nonauthentication ${vname}
+	 disable_auth ${vname}
+	# Nonauthentication ${vname}
         else
         echo "Need To install Apache"	
         fi 

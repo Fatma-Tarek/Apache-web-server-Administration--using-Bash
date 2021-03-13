@@ -104,7 +104,8 @@ function checkIfVHostIsExist {
 }
 
 function authenticationVirtualHost {
-nameOfWebsite=${1} 
+nameOfWebsite=${1}
+echo ${nameOfWebsite} 
 if [ ${2} == "yes" ]; then
 echo " enter username"
 read name
@@ -141,21 +142,6 @@ sudo htpasswd /var/www/websites/${nameOfWebsite}/.htpasswd ${userName}
 service apache2 restart
 }
 
-#Function to Non Authentication
-function Nonauthentication1 {
-nameOfWebsite=${1}
-#echo "
-echo "<VirtualHost *:80>">/etc/apache2/sites-available/${nameOfWebsite}.conf
-echo -E "DocumentRoot /var/www/websites/${nameOfWebsite}
-ServerName ${nameOfWebsite}
-</VirtualHost>
-<Directory /var/www/websites/${nameOfWebsite}>
-AllowOverride none
-</Directory>
-">>/etc/apache2/sites-available/${nameOfWebsite}.conf
-sudo service apache2 restart
-}
-
 #Function to Non Authentication 
 function Nonauthentication {
 nameOfWebsite=${1}
@@ -178,3 +164,25 @@ if grep -Fxq "${1}" allLocalHost; then
 echo "Can't add these name"
 fi
 }
+
+
+function disable_auth {
+LOCALHOAST_NAME=${1}
+echo "<VirtualHost *:80>">/etc/apache2/sites-available/${LOCALHOAST_NAME}.conf
+echo -E "DocumentRoot /var/www/websites/${LOCALHOAST_NAME}
+ServerName ${LOCALHOAST_NAME}
+</VirtualHost>
+<Directory /var/www/websites/${LOCALHOAST_NAME}>
+AllowOverride None
+</Directory>">>/etc/apache2/sites-available/${LOCALHOAST_NAME}.conf
+service apache2 restart
+}
+
+###################function disable virtual host###################
+function disableLocalHost {
+a2dissite ${1}
+service apache2 restart #restart
+}
+
+
+
