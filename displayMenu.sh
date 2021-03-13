@@ -1,11 +1,11 @@
 ### script to view Options menu
 
 #source controller.sh
-
+# Menu  show all options 
 function displayMenu {
 
 PS3='Please enter your choice: '
-options=("Install Apache" "Remove Apache" "Start Apache" "Stop Apache" "Add VirtualHosts" "Remove VirtualHosts" "Authentication" "Non authentication" "Add_New_authenticationVirtualHost"  "Display All Local Host" "Quit")
+options=("Install Apache" "Remove Apache" "Start Apache" "Stop Apache" "Add VirtualHosts" "Remove VirtualHosts" "Authentication" "Non authentication" "Add_New_authenticationVirtualHost" "Enable virtualHost" "Disable virtualHost" "Display All Local Host" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -127,7 +127,7 @@ B		;;
          ApacheEXIST=${?} ##already installed
          if [ ${ApacheEXIST} == 1 ] ##already installed
          then
-	 echo "website name:"
+	 echo "website name (ex name.com):"
          read  vname
 	 Nonauthentication ${vname}
         else
@@ -148,6 +148,30 @@ B		;;
 	echo "Need to install Apache"
  	fi 	
 	;;
+	"Enable virtualHost")
+	checkApache
+         ApacheEXIST=${?} ##already installed
+         if [ ${ApacheEXIST} == 1 ] ##already installed
+         then
+         echo "website name (ex name.com):"
+         read  vname
+         enableLocalHost ${vname}
+         else
+          echo "Need To install Apache"
+         fi
+	;;
+	"Disable virtualHost")
+	checkApache
+	ApacheEXIST=${?} ##already installed
+	if [ ${ApacheEXIST} == 1 ] ##already installed
+	 then
+         echo "website name (ex name.com):"
+         read  vname
+	 disableLocalHost ${vname}
+         else
+          echo "Need To install Apache"
+         fi
+        ;;
 	"Display All Local Host")
 	 checkApache
          ApacheEXIST=${?} ##already installed
