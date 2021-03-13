@@ -15,16 +15,23 @@ If you choose 3: you will start apache if it exists.
 If you choose 4: you will stop apache if it exists.
 
 If you choose 5: you will Add new virtual Host if it apache exists.
+
 					You should add virtual host as : name.com
+				
 					It will ask you for name for user name0
+				
 					And  ask  for password.
 				
 If you choose 6: you will remove virtual Host if it apache exists.
+
 					You should type name of virtual host as : name.com
 				
 If you choose 7: you will add Authentication for specific virtual Host if it apache exists.
+
 					You should type name of virtual host as : name.com
+				
 					It will ask you for name for user name. 
+				
 					And  ask  for password.
 			
 			
