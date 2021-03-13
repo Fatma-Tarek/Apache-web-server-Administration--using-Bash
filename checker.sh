@@ -62,7 +62,18 @@ authVirtualHost=${1}
 }
 
 
-
+function checkApache {
+     service apache2 status > status.txt 2>&1
+     status=$(grep 'unrecognized' status.txt)
+     echo ${status}      #Apache not Exist
+     FLAG_EXIST=0
+     if [ -z "$status" ]
+     then
+      FLAG_EXIST=1      #Apache Exist
+     fi
+    # echo $FLAG
+     return $[FLAG_EXIST]
+}
 
 
 
