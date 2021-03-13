@@ -74,5 +74,6 @@ function checkApache {
       FLAG_EXIST=1      #Apache Exist
      fi
     # echo $FLAG
+    sudo rm status.txt
      return $[FLAG_EXIST]
 }
